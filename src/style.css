@@ -52,6 +52,10 @@ main ul li i {
   color: #a0a0a0;
 }
 
+main ul li i.bi-three-dots-vertical:hover {
+  cursor: move;
+}
+
 main ul li i:hover {
   color: #202020;
 }
