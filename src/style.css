@@ -1,4 +1,86 @@
-body {
-    background-color: rgb(190, 158, 118);
-    font-family: 'Courier New', Courier, monospace;
+* {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+main {
+  width: 60%;
+  margin: 10em auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+}
+
+main h1 {
+  text-align: center;
+}
+
+main ul {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px 3px #ebebeb;
+  border-radius: 3px;
+}
+
+main ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 1.5em;
+  min-height: 60px;
+  font-size: 16px;
+}
+
+main ul li:not(:last-child) {
+  border-bottom: 0.5px solid #e9e9e9;
+}
+
+main ul li.list-footer {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  color: #a0a0a0;
+  cursor: pointer;
+}
+
+main ul li.list-footer:hover {
+  text-decoration: underline;
+  color: #202020;
+}
+
+main ul li i {
+  cursor: pointer;
+  color: #a0a0a0;
+}
+
+main ul li i.bi-three-dots-vertical:hover {
+  cursor: move;
+}
+
+main ul li i:hover {
+  color: #202020;
+}
+
+main ul li form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: -1em auto;
+  position: relative;
+}
+
+main ul li form input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 1em 0;
+  height: 40px;
+  font-size: 16px;
+}
+
+main ul li form button {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
