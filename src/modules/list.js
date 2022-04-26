@@ -35,7 +35,7 @@ export class List {
   }
 
   render() {
-    this.tasks.forEach((task) => {
+    this.tasks.sort((a, b) => b.index - a.index).forEach((task) => {
       const taskItem = document.createElement('li');
       taskItem.innerHTML = `
         <span>
