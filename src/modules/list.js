@@ -5,15 +5,16 @@ export class List {
     this.container = document.getElementById('form-item');
   }
 
+  addTask(task) {
+    this.tasks.push(task);
+    this.render();
+  }
+
   render() {
+    this.container.parentNode.querySelectorAll('[data-task]').forEach(task => task.remove());
+
     this.tasks.sort((a, b) => b.index - a.index).forEach((task) => {
-      const taskItem = document.createElement('li');
-      taskItem.innerHTML = `
-        <span>
-          ${!task.completed ? '<i class="bi bi-square"></i>' : '<i class="bi bi-check-square"></i>'} ${task.description}
-        </span>
-        <i class="bi bi-three-dots-vertical"></i>
-      `;
+      const taskItem = task.createNode();
       this.container.after(taskItem);
     });
   }
