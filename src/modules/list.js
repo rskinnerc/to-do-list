@@ -11,14 +11,24 @@ export class List {
     this.render();
   }
 
+  removeTask(index) {
+    this.tasks.splice(index - 1, 1);
+    this.render();
+    this.tasks.forEach((task) => {
+      task.setIndex(this.tasks.indexOf(task) + 1);
+    })
+  }
+
   render() {
-    console.log(this.tasks)
     this.container.parentNode.querySelectorAll('[data-task]').forEach(task => task.remove());
 
     this.tasks.sort((a, b) => b.index - a.index).forEach((task) => {
       const taskItem = task.createNode();
       this.container.after(taskItem);
     });
+
+    this.tasks.sort((a, b) => a.index - b.index)
+    console.log(this.tasks);
   }
 }
 
