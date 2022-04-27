@@ -4,7 +4,6 @@ import { Task } from "./task";
 export class TaskForm {
   constructor(form, isUpdating = false) {
     this.form = document.forms[form];
-    console.log(form)
     this.isUpdating = isUpdating;
     this.form.onsubmit = this.submit.bind(this);
   }

@@ -1,20 +1,27 @@
+import { Task } from "./task";
+
 export class List {
   tasks = []
 
   constructor() {
     this.container = document.getElementById('form-item');
+    if (localStorage.getItem('localTasks')) {
+      this.tasks = JSON.parse(localStorage.getItem('localTasks')).map((task) => {
+        return new Task(task.description, task.completed, task.index);
+      })
+    }
   }
 
   addTask(task) {
     task.setIndex(this.tasks.length + 1);
     this.tasks.push(task);
     this.render();
+    this.saveToLocal();
   }
 
   updateTask(description, index) {
     this.tasks[index - 1].description = description;
-    // const updatedInput = document.querySelector(`[data-task-id="${index}"]`);
-    // updatedInput.value = description;
+    this.saveToLocal();
   }
 
   removeTask(index) {
@@ -23,6 +30,7 @@ export class List {
     this.tasks.forEach((task) => {
       task.setIndex(this.tasks.indexOf(task) + 1);
     })
+    this.saveToLocal();
   }
 
   render() {
@@ -34,7 +42,10 @@ export class List {
     });
 
     this.tasks.sort((a, b) => a.index - b.index)
-    console.log(this.tasks);
+  }
+
+  saveToLocal() {
+    localStorage.setItem('localTasks', JSON.stringify(this.tasks));
   }
 }
 
