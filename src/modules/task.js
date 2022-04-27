@@ -1,4 +1,5 @@
 import list from "./list";
+import { TaskForm } from "./task-form";
 
 export class Task {
   constructor(description, completed = false, index = null) {
@@ -18,8 +19,9 @@ export class Task {
     taskNode.innerHTML = `
     <div class="task-item-container">
       ${!this.completed ? `<i class="bi bi-square" data-task-id="${this.index}"></i>` : `<i class="bi bi-check-square" data-task-id="${this.index}"></i>`} 
-      <form>
-        <input type="text" class="task-item"  name="description" value="${this.description}" />
+      <form name="task-${this.index}">
+        <input type="text" class="task-item"  name="description" data-task-id="${this.index}" value="${this.description}" />
+        <input type="hidden"value="${this.index}" name="index" />
       </form>
     </div>
     <i class="bi bi-trash3 hidden" data-task-index="${this.index}"></i><i class="bi bi-three-dots-vertical" data-task-index="${this.index}"></i>
@@ -36,6 +38,9 @@ export class Task {
     taskNode.classList.add('editing-task');
     const trash = taskNode.querySelector('i.bi-trash3');
     trash.classList.toggle('hidden');
+
+    new TaskForm('task-' + this.index, true);
+
     trash.onclick = (e) => {
       e.cancelBubble = true;
       list.removeTask(this.index);
@@ -44,6 +49,9 @@ export class Task {
   }
 
   edited(e, taskNode) {
+    const editingForm = new TaskForm('task-' + this.index, true);
+    editingForm.triggerSubmit();
+
     setTimeout(() => {
       taskNode.classList.remove('editing-task');
       taskNode.querySelector('i.bi-trash3').classList.toggle('hidden');

@@ -11,6 +11,12 @@ export class List {
     this.render();
   }
 
+  updateTask(description, index) {
+    this.tasks[index - 1].description = description;
+    // const updatedInput = document.querySelector(`[data-task-id="${index}"]`);
+    // updatedInput.value = description;
+  }
+
   removeTask(index) {
     this.tasks.splice(index - 1, 1);
     this.render();
