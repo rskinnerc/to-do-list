@@ -6,11 +6,13 @@ export class List {
   }
 
   addTask(task) {
+    task.setIndex(this.tasks.length + 1);
     this.tasks.push(task);
     this.render();
   }
 
   render() {
+    console.log(this.tasks)
     this.container.parentNode.querySelectorAll('[data-task]').forEach(task => task.remove());
 
     this.tasks.sort((a, b) => b.index - a.index).forEach((task) => {
