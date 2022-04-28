@@ -84,3 +84,26 @@ main ul li form button {
   border: none;
   padding: 0;
 }
+
+li.editing-task {
+  background-color: #fffeca;
+}
+
+div.task-item-container {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+}
+
+input.task-item,
+input.task-item:focus {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
