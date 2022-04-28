@@ -1,7 +1,6 @@
-import list from "./list";
-import { Task } from "./task";
+import list from './list.js';
 
-export class TaskForm {
+export default class TaskForm {
   constructor(form, isUpdating = false) {
     this.form = document.forms[form];
     this.isUpdating = isUpdating;
@@ -13,19 +12,18 @@ export class TaskForm {
   }
 
   submit(e) {
-    e ? e.preventDefault() : null;
+    if (e) {
+      e.preventDefault();
+    }
     if (this.isUpdating) {
       const description = this.form.description.value;
       const index = this.form.index.value;
       list.updateTask(description, index);
     } else {
       const description = this.form.description.value;
-      const newTask = new Task(description);
-      list.addTask(newTask);
+      list.addTask(description);
       this.form.description.focus();
       this.form.reset();
     }
-
-
   }
 }

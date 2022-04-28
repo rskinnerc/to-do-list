@@ -1,7 +1,7 @@
-import list from "./list";
-import { TaskForm } from "./task-form";
+import list from './list.js';
+import TaskForm from './task-form.js';
 
-export class Task {
+export default class Task {
   constructor(description, completed = false, index = null) {
     this.description = description;
     this.completed = completed;
@@ -39,24 +39,23 @@ export class Task {
     const trash = taskNode.querySelector('i.bi-trash3');
     trash.classList.toggle('hidden');
 
-    new TaskForm('task-' + this.index, true);
-
+    const editingForm = new TaskForm(`task-${this.index}`, true);
+    editingForm.cancelBubble = true;
     trash.onclick = (e) => {
       e.cancelBubble = true;
       list.removeTask(this.index);
-    }
+    };
     taskNode.querySelector('i.bi-three-dots-vertical').classList.toggle('hidden');
   }
 
   edited(e, taskNode) {
-    const editingForm = new TaskForm('task-' + this.index, true);
+    const editingForm = new TaskForm(`task-${this.index}`, true);
     editingForm.triggerSubmit();
 
     setTimeout(() => {
       taskNode.classList.remove('editing-task');
       taskNode.querySelector('i.bi-trash3').classList.toggle('hidden');
       taskNode.querySelector('i.bi-three-dots-vertical').classList.toggle('hidden');
-    }, 100)
-
+    }, 100);
   }
 }
