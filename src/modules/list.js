@@ -25,10 +25,10 @@ export class List {
 
   removeTask(index) {
     this.tasks.splice(index - 1, 1);
-    this.render();
     this.tasks.forEach((task) => {
       task.setIndex(this.tasks.indexOf(task) + 1);
     });
+    this.render();
     this.saveToLocal();
   }
 

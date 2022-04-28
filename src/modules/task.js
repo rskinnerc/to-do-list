@@ -40,7 +40,8 @@ export default class Task {
     trash.classList.toggle('hidden');
 
     const editingForm = new TaskForm(`task-${this.index}`, true);
-    editingForm.cancelBubble = true;
+    editingForm.isUpdating = false;
+
     trash.onclick = (e) => {
       e.cancelBubble = true;
       list.removeTask(this.index);
