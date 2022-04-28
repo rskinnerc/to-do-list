@@ -1,7 +1,5 @@
 import './reset.css';
 import './style.css';
-import TaskForm from './modules/task-form.js';
+import list from './modules/list.js';
 
-const init = () => new TaskForm('addTaskForm');
-
-init();
+list.render();
