@@ -8,9 +8,13 @@ export class List {
 
   constructor() {
     this.container = document.getElementById('form-item');
+    const clearCompletedBtn = document.querySelector('.list-footer');
+
     if (localStorage.getItem('localTasks')) {
       this.tasks = JSON.parse(localStorage.getItem('localTasks')).map((task) => new Task(task.description, task.completed, task.index));
     }
+
+    clearCompletedBtn.onclick = this.clearCompleted.bind(this);
 
     this.setCurrentForm();
   }
@@ -24,7 +28,6 @@ export class List {
     e.preventDefault();
     if (this.editingForm.isUpdating) {
       this.updateTask(this.editingForm.form.description.value, this.editingForm.form.index.value);
-      this.editingForm.form.description.blur();
     } else {
       this.addTask(this.editingForm.form.description.value);
       this.editingForm.form.description.focus();
@@ -35,8 +38,7 @@ export class List {
   addTask(description) {
     const task = new Task(description, false, this.tasks.length + 1);
     this.tasks.push(task);
-    this.render();
-    this.saveToLocal();
+    this.render().saveToLocal();
   }
 
   updateTask(description, index) {
@@ -49,8 +51,18 @@ export class List {
     this.tasks.forEach((task) => {
       task.setIndex(this.tasks.indexOf(task) + 1);
     });
-    this.saveToLocal();
-    this.render();
+
+    this.render().saveToLocal();
+  }
+
+  toggleTaskStatus(task) {
+    task.toggleStatus();
+    this.render().saveToLocal();
+  }
+
+  clearCompleted() {
+    this.tasks = this.tasks.filter((task) => !task.completed);
+    this.render().saveToLocal();
   }
 
   render() {
@@ -61,9 +73,13 @@ export class List {
       this.container.after(taskNode);
       descriptionNode.onfocus = (e) => this.editing(e, taskNode, taskIndex);
       descriptionNode.onblur = (e) => this.edited(e, taskNode, taskIndex);
+      const completeBtn = taskNode.querySelector('input[type="checkbox"]');
+      completeBtn.onchange = () => this.toggleTaskStatus(task);
     });
 
     this.tasks.sort((a, b) => a.index - b.index);
+
+    return this;
   }
 
   saveToLocal() {
@@ -87,7 +103,6 @@ export class List {
   edited(e, taskNode) {
     this.editingForm.form.requestSubmit();
     this.setCurrentForm();
-    this.editingForm.form.description.focus();
     setTimeout(() => {
       taskNode.classList.remove('editing-task');
       taskNode.querySelector('i.bi-trash3').classList.toggle('hidden');
