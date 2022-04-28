@@ -39,7 +39,6 @@ export class List {
     const task = new Task(description, false, this.tasks.length + 1);
     this.tasks.push(task);
     this.render().saveToLocal();
-
   }
 
   updateTask(description, index) {
@@ -75,7 +74,7 @@ export class List {
       descriptionNode.onfocus = (e) => this.editing(e, taskNode, taskIndex);
       descriptionNode.onblur = (e) => this.edited(e, taskNode, taskIndex);
       const completeBtn = taskNode.querySelector('input[type="checkbox"]');
-      completeBtn.onchange = (e) => this.toggleTaskStatus(task);
+      completeBtn.onchange = () => this.toggleTaskStatus(task);
     });
 
     this.tasks.sort((a, b) => a.index - b.index);
