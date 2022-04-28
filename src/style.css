@@ -104,6 +104,20 @@ input.task-item:focus {
   width: 100%;
 }
 
+.task-status input[type="checkbox"] {
+  display: none;
+}
+
+i.bi-check-lg {
+  color: rgb(26, 71, 219);
+  font-size: 16px;
+}
+
+input.task-item.task-completed {
+  text-decoration: line-through;
+  color: #a0a0a0;
+}
+
 .hidden {
   display: none;
 }
