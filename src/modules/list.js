@@ -8,9 +8,13 @@ export class List {
 
   constructor() {
     this.container = document.getElementById('form-item');
+    const clearCompletedBtn = document.querySelector('.list-footer');
+
     if (localStorage.getItem('localTasks')) {
       this.tasks = JSON.parse(localStorage.getItem('localTasks')).map((task) => new Task(task.description, task.completed, task.index));
     }
+
+    clearCompletedBtn.onclick = this.clearCompleted.bind(this);
 
     this.setCurrentForm();
   }
@@ -54,6 +58,11 @@ export class List {
 
   toggleTaskStatus(task) {
     task.toggleStatus();
+    this.render().saveToLocal();
+  }
+
+  clearCompleted() {
+    this.tasks = this.tasks.filter((task) => !task.completed);
     this.render().saveToLocal();
   }
 
