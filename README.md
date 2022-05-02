@@ -11,6 +11,10 @@
 - CSS
 - Webpack
 
+## Live Demo
+
+[Live Demo Link](https://rskinnerc.github.io/to-do-list/)
+
 ## Getting Started
 
 **This project features a basic implementation of a To-Do list using ES6 syntax, modules and webpack.**
